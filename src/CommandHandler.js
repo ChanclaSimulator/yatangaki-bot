@@ -47,7 +47,7 @@ class CommandHandler {
 		// generate help display
 		let helpText = "Available commands:\n------------------------------\n";
 		let helpBuilder = [];
-		let joinedAliasCmdList = cmdList.map(({alias, ...rest}) => ({alias: alias ? `[${alias.join(", ")}]` : "-", ...rest}));
+		let joinedAliasCmdList = cmdList.map(({alias, command, ...rest}) => ({alias: alias ? `[${alias.join(", ")}]` : "-", command: `!${command}`, ...rest}));
 		joinedAliasCmdList.unshift(
 			{command: "Command", alias: "Alias", description: "Description"},
 			{command: "------", alias: "------", description: "------"}
