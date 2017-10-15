@@ -28,6 +28,7 @@
     "discord.js": "^11.2.1",
     "erlpack": "github:hammerandchisel/erlpack",
     "libsodium-wrappers": "^0.5.4",
+    "lodash": "^4.17.4",
     "node-opus": "^0.2.7",
     "sodium": "^2.0.1",
     "uws": "^0.14.5"
