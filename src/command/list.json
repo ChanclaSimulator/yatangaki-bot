@@ -1,11 +1,24 @@
 [
 	{
-		"command": "!test",
+		"command": "test",
 		"alias": ["toto", "toto2"],
-		"playAudio": "issou.mp3"
+		"playAudioFile": "air.wav",
+		"reply": "test"
 	},
 	{
-		"command": "lol",
-		"reply": "ISSOU"
+		"command": "mp3",
+		"playAudioFile": "air.mp3"
+	},
+	{
+		"command": "issou short",
+		"alias": ["issou"],
+		"description": "Play risitas laugh",
+		"contains": ["lol"],
+		"playAudioFile": "issou.mp3"
+	},
+	{
+		"command": "issou long",
+		"description": "Play Issou Night Club",
+		"playAudioFile": "issou_night_club.mp3"
 	}
 ]

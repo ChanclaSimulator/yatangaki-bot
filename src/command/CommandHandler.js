@@ -1,4 +1,6 @@
+import path from "path";
 import cmdList from "./list.json";
+import _ from "lodash";
 import Ajv from "ajv"; // Ajv: Another JSON Schema Validator
 
 const cmdListSchema = {
@@ -14,7 +16,11 @@ const cmdListSchema = {
                 "items": {
                     "type": "string"
                 }
-            }
+            },
+			"reply": {
+				"type": "string"
+			}
+
         },
         "required": ["command"]
     }
@@ -28,9 +34,70 @@ class CommandHandler {
 			throw new Error(`Invalid json schema. ${ajv.errorsText()}. Please check "src/command/list.json"`);
 		}
 		this.cmdList = cmdList;
+
+		// add stop command
 		this.cmdList.push({
-			"command": "!help"
+			"command": "stop",
+			"alias": ["shut up"],
+			"description": "Stop current playing media",
+			"functionName": "stopPlayer"
 		});
+
+		// generate help display
+		let helpText = "Available commands:\n------------------------------\n";
+		let helpBuilder = [];
+		let joinedAliasCmdList = cmdList.map(({alias, ...rest}) => ({alias: alias ? `[${alias.join(", ")}]` : "-", ...rest}));
+		joinedAliasCmdList.unshift(
+			{command: "Command", alias: "Alias", description: "Description"},
+			{command: "------", alias: "------", description: "------"}
+		);
+		let longestCommandString = joinedAliasCmdList.reduce((a, b) => a > b.command.length ? a : b.command.length);
+		let longestAliasString = joinedAliasCmdList.reduce((a, b) => a > b.alias.length ? a : b.alias.length);
+		joinedAliasCmdList.forEach((cmd) => {
+			helpBuilder.push(`${_.padEnd(cmd.command, longestCommandString)} ${_.padEnd(cmd.alias, longestAliasString)} ${cmd.description ? cmd.description : "-"}`);
+		});
+		helpText += helpBuilder.join("\n");
+		this.cmdList.push({
+			"command": "help",
+			"alias": ["h", "cmdlist"],
+			"reply": helpText
+		});
+
+
+		this.playing = false;
+	}
+
+	startPlayer = (fileName, request) => {
+		if(!this.playing){
+			let voiceChannel = request.member.voiceChannel;
+			this.voiceChannel = voiceChannel;
+
+			voiceChannel.join().then(connection => {
+				let audioFilePath = path.join(__dirname, "../../assets/audio/", fileName);
+				console.log("Playing:", audioFilePath);
+				this.playing = true;
+				return connection.playFile(audioFilePath); // non opti
+			}).then(dispatcher => {
+				dispatcher.on("error", err => {
+					console.error(err);
+					this.playing = false;
+					voiceChannel.leave();
+				});
+				dispatcher.on("end", end => {
+					this.playing = false;
+					voiceChannel.leave();
+				});
+			}).catch(console.error);
+		}else{
+			request.channel.send("/me an audio file is already playing");
+		}
+	}
+
+	stopPlayer = () => {
+		if(this.playing){
+			this.voiceChannel.leave();
+			this.playing = false;
+		}
 	}
 
 	handleRequest = (request) => {
@@ -39,27 +106,20 @@ class CommandHandler {
 		if(!request.content.startsWith("!")){
 			return;
 		}
-		if(["!h", "!help", "!cmdlist"].includes(content)){
-			request.channel.send("yolo");
-			return;
-		}
-
-		let test = this.cmdList.find((e) => e.command === content);
+		let test = this.cmdList.find((e) => {
+			let command = content.substr(1); // delete the "!"
+			return e.command === command || (e.alias && e.alias.includes(command))
+		});
 		if(test) {
-			if(test.playAudio){
-				let voiceChannel = request.member.voiceChannel;
-
-				voiceChannel.join().then(connection => {
-					return connection.playFile('/home/benoit/Documents/GitHub/yatangaki-bot/assets/audio/air.wav'); // non opti
-				}).then(dispatcher => {
-					dispatcher.on('error', console.error);
-					dispatcher.on("end", end => {
-	  					voiceChannel.leave();
-	  				});
-				}).catch(console.error);
-
+			if(test.playAudioFile){
+				this.startPlayer(test.playAudioFile, request);
 			}
-			request.channel.send(test.playAudio);
+			if(test.functionName){
+				this[test.functionName]();
+			}
+			if(test.reply){
+				request.channel.send(test.reply, {code: test.reply.includes("\n")});
+			}
 		}
 	}
 }
