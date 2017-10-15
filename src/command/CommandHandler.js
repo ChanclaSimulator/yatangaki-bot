@@ -89,7 +89,7 @@ class CommandHandler {
 				});
 			}).catch(console.error);
 		}else{
-			request.channel.send("/me an audio file is already playing");
+			request.channel.send("an audio file is already playing", {code: true});
 		}
 	}
 
