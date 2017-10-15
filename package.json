@@ -21,7 +21,17 @@
     "url": "https://github.com/branchard/yatangaki-bot/issues"
   },
   "homepage": "https://github.com/branchard/yatangaki-bot#readme",
-  "dependencies": {},
+  "dependencies": {
+    "ajv": "^5.2.3",
+    "bufferutil": "^3.0.2",
+    "discord-message-handler": "^1.0.4",
+    "discord.js": "^11.2.1",
+    "erlpack": "github:hammerandchisel/erlpack",
+    "libsodium-wrappers": "^0.5.4",
+    "node-opus": "^0.2.7",
+    "sodium": "^2.0.1",
+    "uws": "^0.14.5"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

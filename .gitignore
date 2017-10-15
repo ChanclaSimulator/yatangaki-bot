@@ -6,3 +6,6 @@ node_modules
 .env
 npm-debug.log
 .idea
+
+# config
+config.json

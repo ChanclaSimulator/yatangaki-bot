@@ -1,0 +1,11 @@
+[
+	{
+		"command": "!test",
+		"alias": ["toto", "toto2"],
+		"playAudio": "issou.mp3"
+	},
+	{
+		"command": "lol",
+		"reply": "ISSOU"
+	}
+]
