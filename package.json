@@ -4,6 +4,7 @@
   "description": "ISSOU",
   "main": "src/index.js",
   "scripts": {
+    "start": "babel-watch src/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,14 @@
   "bugs": {
     "url": "https://github.com/branchard/yatangaki-bot/issues"
   },
-  "homepage": "https://github.com/branchard/yatangaki-bot#readme"
+  "homepage": "https://github.com/branchard/yatangaki-bot#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-watch": "^2.0.7"
+  }
 }
