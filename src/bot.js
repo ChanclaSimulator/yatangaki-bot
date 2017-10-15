@@ -1,6 +1,5 @@
 import path from "path";
 import Discord from "discord.js";
-import MessageHandler from "discord-message-handler";
 import CommandHandler from "./CommandHandler";
 import {imgAssetsPath} from "./utils";
 import config from "../config.json";
@@ -21,7 +20,7 @@ client.on('ready', () => {
 		.then(() => console.log("New avatar set!"))
 		.catch(console.error);
 
-	client.user.setGame("Risitas 2017")
+	client.user.setGame("Risitas Simulator 2017")
 		.then(() => console.log("New game set!"))
 		.catch(console.error);
 
@@ -30,14 +29,7 @@ client.on('ready', () => {
 		.catch(console.error);
 });
 
-MessageHandler.whenMessageContainsWord("shrug").reply("¯\\_(ツ)_/¯");
-
 client.on("message", (request) => {
-	/*if(request.content === "!ping"){
-		console.log("!ping");
-		request.channel.send("pong!");
-	}*/
-	//MessageHandler.handleMessage(request);
 	commandHandler.handleRequest(request);
 });
 

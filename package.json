@@ -24,7 +24,6 @@
   "dependencies": {
     "ajv": "^5.2.3",
     "bufferutil": "^3.0.2",
-    "discord-message-handler": "^1.0.4",
     "discord.js": "^11.2.1",
     "erlpack": "github:hammerandchisel/erlpack",
     "libsodium-wrappers": "^0.5.4",
