@@ -1,24 +1,125 @@
 [
 	{
-		"command": "test",
-		"alias": ["toto", "toto2"],
-		"playAudioFile": "air.wav",
-		"reply": "test"
+		"command": "stop",
+		"alias": ["shut up", "tg"],
+		"description": "Stop current playing media",
+		"functionName": "stopPlayer"
 	},
 	{
-		"command": "mp3",
-		"playAudioFile": "air.mp3"
-	},
-	{
-		"command": "issou short",
-		"alias": ["issou"],
-		"description": "Play risitas laugh",
-		"contains": ["lol"],
+		"command": "issou",
+		"description": "Play issou",
 		"playAudioFile": "issou.mp3"
 	},
 	{
+		"command": "issou short",
+		"alias": ["issou s"],
+		"description": "Play issou short",
+		"playAudioFile": "issou_short.mp3"
+	},
+	{
 		"command": "issou long",
+		"alias": ["issou l"],
+		"description": "Play issou long",
+		"playAudioFile": "issou_long.mp3"
+	},
+	{
+		"command": "lol",
+		"alias": ["rire", "laugh"],
+		"description": "Play random laugh (x12)",
+		"playAudioFile": [
+			"rire1.mp3",
+			"rire2.mp3",
+			"rire3.mp3",
+			"rire4.mp3",
+			"rire5.mp3",
+			"rire6.mp3",
+			"rire7.mp3",
+			"rire8.mp3",
+			"rire9.mp3",
+			"rire10.mp3",
+			"rire11.mp3",
+			"rire12.mp3"
+		]
+	},
+	{
+		"command": "chancla",
+		"description": "Play la chancla",
+		"playAudioFile": "chancla.mp3"
+	},
+	{
+		"command": "yatangaki",
+		"description": "Play yatangaki",
+		"playAudioFile": "yatangaki.mp3"
+	},
+	{
+		"command": "banador",
+		"alias": ["bañador"],
+		"description": "Play bañador",
+		"playAudioFile": "banador.mp3"
+	},
+	{
+		"command": "ataoy",
+		"description": "Play ataoy",
+		"playAudioFile": "ataoy.mp3"
+	},
+	{
+		"command": "playa",
+		"description": "Play playa",
+		"playAudioFile": "playa.mp3"
+	},
+	{
+		"command": "issou club",
+		"alias": ["club"],
 		"description": "Play Issou Night Club",
 		"playAudioFile": "issou_night_club.mp3"
+	},
+	{
+		"command": "issou trap",
+		"alias": ["trap"],
+		"description": "Play Issou Trap Remix",
+		"playAudioFile": "issou_trap_remix.mp3"
+	},
+	{
+		"command": "risitas",
+		"description": "Send random risitas picture",
+		"attachment": [
+			"risitas1.png",
+			"risitas2.png",
+			"risitas3.png",
+			"risitas4.png",
+			"risitas5.png",
+			"risitas6.png",
+			"risitas7.png",
+			"risitas8.png",
+			"risitas9.png",
+			"risitas10.png",
+			"risitas11.png",
+			"risitas12.png",
+			"risitas13.png",
+			"risitas14.png",
+			"risitas15.png",
+			"risitas16.png",
+			"risitas17.png",
+			"risitas18.png",
+			"risitas19.png",
+			"risitas20.png",
+			"risitas21.png",
+			"risitas22.png",
+			"risitas23.png",
+			"risitas24.png",
+			"risitas25.png",
+			"risitas26.png",
+			"risitas27.png",
+			"risitas28.png",
+			"risitas29.png",
+			"risitas30.png",
+			"risitas31.png",
+			"risitas32.png",
+			"risitas33.png",
+			"risitas34.png",
+			"risitas35.png",
+			"risitas36.png",
+			"risitas37.png"
+		]
 	}
 ]

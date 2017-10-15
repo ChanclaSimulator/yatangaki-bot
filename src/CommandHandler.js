@@ -1,6 +1,6 @@
 import path from "path";
 import cmdList from "../assets/cmd.json";
-import {audioAssetsPath} from "./utils";
+import {audioAssetsPath, imgAssetsPath} from "./utils";
 import _ from "lodash";
 import Ajv from "ajv"; // Ajv: Another JSON Schema Validator
 
@@ -36,21 +36,19 @@ class CommandHandler {
 		}
 		this.cmdList = cmdList;
 
-		// add stop command
-		this.cmdList.push({
-			"command": "stop",
-			"alias": ["shut up"],
-			"description": "Stop current playing media",
-			"functionName": "stopPlayer"
-		});
-
 		// generate help display
 		let helpText = "Available commands:\n------------------------------\n";
 		let helpBuilder = [];
-		let joinedAliasCmdList = cmdList.map(({alias, command, ...rest}) => ({alias: alias ? `[${alias.join(", ")}]` : "-", command: `!${command}`, ...rest}));
+		let joinedAliasCmdList = cmdList.map(({alias, command, ...rest}) => {
+			if(alias){
+				alias = alias.map((a) => `!${a}`);
+			}
+			return({alias: alias ? `[${alias.join(", ")}]` : "-", command: `!${command}`, ...rest});
+		});
 		joinedAliasCmdList.unshift(
 			{command: "Command", alias: "Alias", description: "Description"},
-			{command: "------", alias: "------", description: "------"}
+			{command: "------", alias: "------", description: "------"},
+			{command: "!help", alias: "[!h, !cmdlist]", description: "View help"},
 		);
 		let longestCommandString = joinedAliasCmdList.reduce((a, b) => a > b.command.length ? a : b.command.length);
 		let longestAliasString = joinedAliasCmdList.reduce((a, b) => a > b.alias.length ? a : b.alias.length);
@@ -64,7 +62,8 @@ class CommandHandler {
 			"reply": helpText
 		});
 
-
+		this.queueMod = false; // TODO
+		this.alwaysInChannel = false; // TODO
 		this.playing = false;
 	}
 
@@ -113,13 +112,22 @@ class CommandHandler {
 		});
 		if(test) {
 			if(test.playAudioFile){
-				this.startPlayer(test.playAudioFile, request);
+				this.startPlayer(
+					test.playAudioFile instanceof Array ? _.sample(test.playAudioFile) : test.playAudioFile,
+					request
+				);
 			}
 			if(test.functionName){
 				this[test.functionName]();
 			}
-			if(test.reply){
-				request.channel.send(test.reply, {code: test.reply.includes("\n")});
+			if(test.reply || test.attachment){
+				request.channel.send(
+					test.reply,
+					{
+						code: test.reply && test.reply.includes("\n"),
+						file: test.attachment ? path.join(imgAssetsPath, test.attachment instanceof Array ? _.sample(test.attachment) : test.attachment) : undefined
+					}
+				);
 			}
 		}
 	}
