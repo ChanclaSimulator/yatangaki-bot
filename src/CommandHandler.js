@@ -1,5 +1,6 @@
 import path from "path";
-import cmdList from "./list.json";
+import cmdList from "../assets/cmd.json";
+import {audioAssetsPath} from "./utils";
 import _ from "lodash";
 import Ajv from "ajv"; // Ajv: Another JSON Schema Validator
 
@@ -73,7 +74,7 @@ class CommandHandler {
 			this.voiceChannel = voiceChannel;
 
 			voiceChannel.join().then(connection => {
-				let audioFilePath = path.join(__dirname, "../../assets/audio/", fileName);
+				let audioFilePath = path.join(audioAssetsPath, fileName);
 				console.log("Playing:", audioFilePath);
 				this.playing = true;
 				return connection.playFile(audioFilePath); // non opti

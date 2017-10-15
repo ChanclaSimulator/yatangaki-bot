@@ -1,7 +1,7 @@
 import path from "path";
 import Discord from "discord.js";
 import MessageHandler from "discord-message-handler";
-import CommandHandler from "./command/CommandHandler";
+import CommandHandler from "./CommandHandler";
 import {imgAssetsPath} from "./utils";
 import config from "../config.json";
 
