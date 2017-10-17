@@ -7,7 +7,7 @@ const audioAssetsPath = path.join(assetsPath, "audio/");
 
 
 export {
-	assetsPath,
-	imgAssetsPath,
-	audioAssetsPath
+    assetsPath,
+    imgAssetsPath,
+    audioAssetsPath
 };
