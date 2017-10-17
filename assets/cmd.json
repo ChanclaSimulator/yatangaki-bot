@@ -121,5 +121,31 @@
 			"risitas36.png",
 			"risitas37.png"
 		]
+	},
+	{
+		"command": "jeanne",
+		"description": "Play Jeanne au secours",
+		"playAudioFile": "jeanne.mp3"
+	},
+	{
+		"command": "internet",
+		"description": "Play Internet",
+		"playAudioFile": "internet.mp3"
+	},
+	{
+		"command": "doucement",
+		"alias": ["bonbons"],
+		"description": "Play Doucement",
+		"playAudioFile": "doucement.mp3"
+	},
+	{
+		"command": "tortue",
+		"description": "Play tortue",
+		"playAudioFile": "tortue.mp3"
+	},
+	{
+		"command": "viens",
+		"description": "Play allez viens",
+		"playAudioFile": "viens.mp3"
 	}
 ]
