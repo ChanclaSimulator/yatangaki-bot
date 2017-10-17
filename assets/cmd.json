@@ -147,5 +147,17 @@
 		"command": "viens",
 		"description": "Play allez viens",
 		"playAudioFile": "viens.mp3"
+	},
+	{
+		"command": "eddy",
+		"alias": ["malou"],
+		"description": "Play Eddy Malou",
+		"playAudioFile": "eddy_malou.mp3"
+	},
+	{
+		"command": "kiwi",
+		"alias": ["possible"],
+		"description": "Play carte Kiwi",
+		"playAudioFile": "kiwi.mp3"
 	}
 ]
