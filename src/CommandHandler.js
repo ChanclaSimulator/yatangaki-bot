@@ -70,28 +70,28 @@ class CommandHandler {
 	startPlayer = (fileName, request) => {
 		if(!this.playing){
 			let voiceChannel = request.member.voiceChannel;
-      if(voiceChannel){
-  			this.voiceChannel = voiceChannel;
+            if(voiceChannel){
+      			this.voiceChannel = voiceChannel;
 
-  			voiceChannel.join().then(connection => {
-  				let audioFilePath = path.join(audioAssetsPath, fileName);
-  				console.log("Playing:", audioFilePath);
-  				this.playing = true;
-  				return connection.playFile(audioFilePath); // non opti
-  			}).then(dispatcher => {
-  				dispatcher.on("error", err => {
-  					console.error(err);
-  					this.playing = false;
-  					voiceChannel.leave();
-  				});
-  				dispatcher.on("end", end => {
-  					this.playing = false;
-  					voiceChannel.leave();
-  				});
-  			}).catch(console.error);
-      }else{
-            request.channel.send("your are not in a voice channel", {code: true});
-      }
+      			voiceChannel.join().then(connection => {
+      				let audioFilePath = path.join(audioAssetsPath, fileName);
+      				console.log("Playing:", audioFilePath);
+      				this.playing = true;
+      				return connection.playFile(audioFilePath); // non opti
+      			}).then(dispatcher => {
+      				dispatcher.on("error", err => {
+      					console.error(err);
+      					this.playing = false;
+      					voiceChannel.leave();
+      				});
+      				dispatcher.on("end", end => {
+      					this.playing = false;
+      					voiceChannel.leave();
+      				});
+      			}).catch(console.error);
+            }else{
+                request.channel.send("your are not in a voice channel", {code: true});
+            }
 		}else{
 			request.channel.send("an audio file is already playing", {code: true});
 		}
