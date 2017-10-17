@@ -159,5 +159,13 @@
 		"alias": ["possible"],
 		"description": "Play carte Kiwi",
 		"playAudioFile": "kiwi.mp3"
+	},
+	{
+		"command": "kappa",
+		"alias": ["Kappa"],
+		"description": "Send Kappa",
+		"attachment": [
+			"kappa.png"
+		]
 	}
 ]
