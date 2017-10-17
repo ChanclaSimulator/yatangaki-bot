@@ -30,7 +30,12 @@ client.on('ready', () => {
 });
 
 client.on("message", (request) => {
-	commandHandler.handleRequest(request);
+	try {
+		commandHandler.handleRequest(request);
+	} catch (e) {
+		console.error("handleRequest:", e);
+	}
+
 });
 
 client.login(config.token);
