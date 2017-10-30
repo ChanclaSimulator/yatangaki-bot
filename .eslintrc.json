@@ -1,3 +1,10 @@
 {
-    "extends": "airbnb-base"
+    "extends": "airbnb-base",
+    "rules": {
+        "no-console": "off",
+        "indent": ["error", 4],
+        "prefer-const": "off",
+        "object-curly-spacing": [2, "never"],
+        "comma-dangle": "off"
+    }
 }

@@ -9,3 +9,6 @@ npm-debug.log
 
 # config
 config.json
+
+# ES Modules
+.esm-cache

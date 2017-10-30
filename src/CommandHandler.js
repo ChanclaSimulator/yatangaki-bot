@@ -1,29 +1,29 @@
-import path from "path";
-import cmdList from "../assets/cmd.json";
-import {audioAssetsPath, imgAssetsPath} from "./utils";
-import _ from "lodash";
-import Ajv from "ajv"; // Ajv: Another JSON Schema Validator
+import path from 'path';
+import _ from 'lodash';
+import Ajv from 'ajv'; // Ajv: Another JSON Schema Validator
+import cmdList from '../assets/cmd.json';
+import {audioAssetsPath, imgAssetsPath} from './utils';
 
 const cmdListSchema = {
-    "type": "array",
-    "items": {
-        "type": "object",
-        "properties": {
-            "command": {
-                "type": "string"
+    type: 'array',
+    items: {
+        type: 'object',
+        properties: {
+            command: {
+                type: 'string'
             },
-            "alias": {
-                "type": "array",
-                "items": {
-                    "type": "string"
+            alias: {
+                type: 'array',
+                items: {
+                    type: 'string'
                 }
             },
-            "reply": {
-                "type": "string"
+            reply: {
+                type: 'string'
             }
 
         },
-        "required": ["command"]
+        required: ['command']
     }
 };
 
@@ -37,39 +37,46 @@ class CommandHandler {
         this.cmdList = cmdList;
 
         // generate help display
-        let helpText = "Available commands:\n------------------------------\n";
+        let helpText = 'Available commands:\n------------------------------\n';
         let helpBuilder = [];
-        let joinedAliasCmdList = cmdList.map(({alias, command, ...rest}) => {
-            if (alias) {
-                alias = alias.map((a) => `!${a}`);
-            }
-            return ({alias: alias ? `[${alias.join(", ")}]` : "-", command: `!${command}`, ...rest});
-        });
-        joinedAliasCmdList.unshift(
-            {command: "Command", alias: "Alias", description: "Description"},
-            {command: "------", alias: "------", description: "------"},
-            {command: "!help", alias: "[!h, !cmdlist]", description: "View help"},
+        let joinedAliasCmdList = cmdList.map(({alias, command, ...rest}) =>
+            ({alias: alias ? `[${alias.map(a => `!${a}`).join(', ')}]` : '-', command: `!${command}`, ...rest})
         );
-        let longestCommandString = joinedAliasCmdList.reduce((a, b) => a > b.command.length ? a : b.command.length);
-        let longestAliasString = joinedAliasCmdList.reduce((a, b) => a > b.alias.length ? a : b.alias.length);
+        joinedAliasCmdList.unshift(
+            {command: 'Command', alias: 'Alias', description: 'Description'},
+            {command: '------', alias: '------', description: '------'},
+            {command: '!help', alias: '[!h, !cmdlist]', description: 'View help'},
+        );
+
+        let longestCommandString = joinedAliasCmdList.reduce(
+            (a, b) => a > b.command.length ? a : b.command.length
+        );
+        let longestAliasString = joinedAliasCmdList.reduce(
+            (a, b) => a > b.alias.length ? a : b.alias.length
+        );
         joinedAliasCmdList.forEach((cmd) => {
-            helpBuilder.push(`${_.padEnd(cmd.command, longestCommandString)} ${_.padEnd(cmd.alias, longestAliasString)} ${cmd.description ? cmd.description : "-"}`);
+            helpBuilder.push(`${_.padEnd(cmd.command, longestCommandString)} ${_.padEnd(cmd.alias, longestAliasString)} ${cmd.description ? cmd.description : '-'}`);
         });
-        helpText += helpBuilder.join("\n");
+        helpText += helpBuilder.join('\n');
         this.cmdList.push({
-            "command": "help",
-            "alias": ["h", "cmdlist"],
-            "reply": helpText
+            command: 'help',
+            alias: ['h', 'cmdlist'],
+            reply: helpText
         });
 
         this.queueMod = false; // TODO
         this.alwaysInChannel = false; // TODO
         this.playing = false;
+
+        // bind this
+        this.startPlayer = this.startPlayer.bind(this);
+        this.stopPlayer = this.stopPlayer.bind(this);
+        this.handleRequest = this.handleRequest.bind(this);
     }
 
-    startPlayer = (fileName, request) => {
+    startPlayer(fileName, request) {
         if (!this.playing) {
-            let voiceChannel = request.member.voiceChannel;
+            let {voiceChannel} = request.member;
             if (voiceChannel) {
                 this.voiceChannel = voiceChannel;
 
@@ -90,29 +97,29 @@ class CommandHandler {
                     });
                 }).catch(console.error);
             } else {
-                request.channel.send("your are not in a voice channel", {code: true});
+                request.channel.send('your are not in a voice channel', {code: true});
             }
         } else {
-            request.channel.send("an audio file is already playing", {code: true});
+            request.channel.send('an audio file is already playing', {code: true});
         }
-    };
+    }
 
-    stopPlayer = () => {
+    stopPlayer() {
         if (this.playing) {
             this.voiceChannel.leave();
             this.playing = false;
         }
-    };
+    }
 
-    handleRequest = (request) => {
+    handleRequest(request) {
         let {content} = request;
 
-        if (!request.content.startsWith("!")) {
+        if (!request.content.startsWith('!')) {
             return;
         }
         let test = this.cmdList.find((e) => {
             let command = content.substr(1); // delete the "!"
-            return e.command === command || (e.alias && e.alias.includes(command))
+            return e.command === command || (e.alias && e.alias.includes(command));
         });
         if (test) {
             if (test.playAudioFile) {
