@@ -1,11 +1,12 @@
 import SongRequestCommand from './SongRequestCommand';
+import PlayCommand from './PlayCommand';
 
 class CommandManager {
     constructor() {
         this.commands = [];
         this.commandQueue = [];
 
-        this.register(new SongRequestCommand());
+        this.register(new PlayCommand());
     }
 
     register(command) {
@@ -13,7 +14,7 @@ class CommandManager {
     }
 
     handleRequest(request) {
-        console.log("handle request", request.content);
+        /*console.log("handle request", request.content);
         let that = this;
         this.commands.forEach(command => {
             console.log("lol");
@@ -34,7 +35,11 @@ class CommandManager {
                 that.processQueue();
                 console.log("after");
             }
-        });
+        });*/
+
+		this.commands.forEach(command => {
+			command.handleRequest(request);
+		});
     }
 
     processQueue(){

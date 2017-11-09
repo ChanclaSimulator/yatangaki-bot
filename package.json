@@ -4,7 +4,7 @@
   "description": "ISSOU",
   "main": "src/index.js",
   "scripts": {
-    "start": "ts-node src/test.ts",
+    "start": "babel-watch src/bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,19 +31,18 @@
     "lodash": "^4.17.4",
     "node-opus": "^0.2.7",
     "sodium": "^2.0.1",
-    "uws": "^0.14.5"
+    "uws": "^0.14.5",
+    "xregexp": "^3.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-watch": "^2.0.7",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "jsonlint": "^1.6.2"
+    "eslint-plugin-import": "^2.7.0"
   }
 }

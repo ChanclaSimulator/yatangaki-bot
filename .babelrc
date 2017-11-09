@@ -1,3 +1,6 @@
 {
-  "presets": ["typescript"]
+  "presets": [
+	  "env",
+	  "stage-2"
+  ]
 }
