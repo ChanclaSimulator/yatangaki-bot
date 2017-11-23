@@ -27,12 +27,14 @@
     "bufferutil": "^3.0.2",
     "discord.js": "^11.2.1",
     "erlpack": "github:hammerandchisel/erlpack",
+    "kommandr": "git+ssh://git@github.com/branchard/kommandr.git",
     "libsodium-wrappers": "^0.5.4",
     "lodash": "^4.17.4",
     "node-opus": "^0.2.7",
     "sodium": "^2.0.1",
     "uws": "^0.14.5",
-    "xregexp": "^3.2.0"
+    "xregexp": "^3.2.0",
+    "youtube-audio-stream": "0.0.50"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -10,10 +10,6 @@ class AbstractCommand {
 		//this.commandRegexs = []; // first = command, other = alias
     }
 
-	compileRegexs(commandRegexs){
-		this.commandRegexs = commandRegexs.map(x => XregExp(x));
-	}
-
 	handleRequest(request){
 		for(let commandRegex of this.commandRegexs){
 			//let regexResult = commandRegex.exec(request.content);
